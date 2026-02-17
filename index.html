@@ -1,190 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meow Music Player 🐾</title>
+  <title>Meow Music 🐾</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- Main list page -->
-  <div class="music-player-main">
-    <div class="main-header">
-      <div class="cat-ears">
-        <div class="ear ear-left"></div>
-        <div class="ear ear-right"></div>
+  <!-- Ambient background orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ══════════════════════════════════════
+       MAIN TRACK LIST PAGE
+  ══════════════════════════════════════ -->
+  <div class="music-player-main" id="mainPage">
+
+    <header class="main-header">
+      <div class="header-left">
+        <div class="cat-logo">
+          <svg class="cat-svg" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cat ears -->
+            <polygon points="5,28 16,8 22,28" fill="url(#earGrad)"/>
+            <polygon points="38,28 44,8 55,28" fill="url(#earGrad)"/>
+            <polygon points="8,26 16,12 21,26" fill="url(#innerEar)"/>
+            <polygon points="39,26 44,12 52,26" fill="url(#innerEar)"/>
+            <!-- Cat face -->
+            <ellipse cx="30" cy="34" rx="25" ry="16" fill="url(#faceGrad)"/>
+            <!-- Eyes -->
+            <ellipse cx="21" cy="32" rx="4" ry="5" fill="#1a0533"/>
+            <ellipse cx="39" cy="32" rx="4" ry="5" fill="#1a0533"/>
+            <circle cx="22" cy="30" r="1.2" fill="white"/>
+            <circle cx="40" cy="30" r="1.2" fill="white"/>
+            <!-- Nose -->
+            <polygon points="30,36 28,38 32,38" fill="url(#noseGrad)"/>
+            <!-- Mouth -->
+            <path d="M28,38.5 Q30,40.5 32,38.5" stroke="url(#noseGrad)" stroke-width="1" fill="none"/>
+            <!-- Whiskers -->
+            <line x1="8" y1="35" x2="23" y2="35.5" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+            <line x1="8" y1="38" x2="23" y2="37" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+            <line x1="37" y1="35.5" x2="52" y2="35" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+            <line x1="37" y1="37" x2="52" y2="38" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+            <defs>
+              <linearGradient id="earGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#c084fc"/>
+                <stop offset="100%" stop-color="#818cf8"/>
+              </linearGradient>
+              <linearGradient id="innerEar" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f9a8d4"/>
+                <stop offset="100%" stop-color="#e879f9"/>
+              </linearGradient>
+              <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#c4b5fd"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+              <linearGradient id="noseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f9a8d4"/>
+                <stop offset="100%" stop-color="#fb7185"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Meow Music</h1>
+          <p class="brand-sub">your purr-sonal playlist ✦</p>
+        </div>
       </div>
-      <div class="logo-face">
-        <span class="logo-eyes">ᵔ ᵔ</span>
+      <div class="track-count-badge">
+        <span>11</span> tracks
       </div>
-      <h1>Meow Music</h1>
-      <p class="tagline">purrfect sounds for your kitty 🐾</p>
+    </header>
+
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="search your purr-fect song..." id="searchInput" />
     </div>
 
-    <ul class="music-list">
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+    <ul class="music-list" id="musicList">
+      <li data-index="0">
+        <div class="track-num">01</div>
+        <div class="track-details">
           <span class="music-title">Can_You_Feel_The_Love_Tonight_-_Elton_john__Acoustic_Cover_by_Chase_Eagleson.mp3</span>
+          <span class="track-genre">Acoustic · Pop</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="1">
+        <div class="track-num">02</div>
+        <div class="track-details">
           <span class="music-title">Coldplay_-_The_Scientist__Acoustic_Cover.mp3</span>
+          <span class="track-genre">Acoustic · Rock</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="2">
+        <div class="track-num">03</div>
+        <div class="track-details">
           <span class="music-title">Fly_Me_To_The_Moon_-_Frank_Sinatra__Acoustic_Cover_by_Chase_Eagleson.mp3</span>
+          <span class="track-genre">Jazz · Classic</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="3">
+        <div class="track-num">04</div>
+        <div class="track-details">
           <span class="music-title">We_The_Kings_-_Sad_Song__Lyric_Video__ft._Elena_Coats.m4a</span>
+          <span class="track-genre">Pop · Emotional</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="4">
+        <div class="track-num">05</div>
+        <div class="track-details">
           <span class="music-title">Chord_Overstreet_-_Hold_On__Lyrics.m4a</span>
+          <span class="track-genre">Pop · Heartfelt</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="5">
+        <div class="track-num">06</div>
+        <div class="track-details">
           <span class="music-title">Dirty_Heads_-_Vacation__Lyrics____I_m_on_vacation_every_single_day.m4a</span>
+          <span class="track-genre">Reggae · Chill</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="6">
+        <div class="track-num">07</div>
+        <div class="track-details">
           <span class="music-title">Elvis_Presley_-_Can_t_Help_Falling_In_Love___Music_Travel_Love__Cover.mp3</span>
+          <span class="track-genre">Classic · Romance</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="7">
+        <div class="track-num">08</div>
+        <div class="track-details">
           <span class="music-title">How_Deep_Is_Your_Love___Music_Travel_Love_ft._Anthony_Uy__Bee_Gees_Cover.mp3</span>
+          <span class="track-genre">Pop · Romantic</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="8">
+        <div class="track-num">09</div>
+        <div class="track-details">
           <span class="music-title">Nathan_Evans_-_Wellerman__Sea_Shanty.m4a</span>
+          <span class="track-genre">Folk · Shanty</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="9">
+        <div class="track-num">10</div>
+        <div class="track-details">
           <span class="music-title">Until_I_Found_You_-Stephen_Sanchez_ft._Em_Beihold__Lyric.m4a</span>
+          <span class="track-genre">Indie · Love</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
-      <li>
-        <div class="track-info">
-          <span class="paw-icon">🐾</span>
+      <li data-index="10">
+        <div class="track-num">11</div>
+        <div class="track-details">
           <span class="music-title">Brad_Paisley_-_Whiskey_Lullaby__Lyrics__ft._Alison_Krauss.mp3</span>
+          <span class="track-genre">Country · Ballad</span>
         </div>
         <button class="play-music" aria-label="Play">
-          <span class="play-icon">▶</span>
+          <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
         </button>
       </li>
     </ul>
   </div>
 
-  <!-- Now Playing page -->
-  <div class="music-play-page">
+  <!-- ══════════════════════════════════════
+       NOW PLAYING PAGE
+  ══════════════════════════════════════ -->
+  <div class="music-play-page" id="playerPage">
+
     <nav>
-      <button class="back-btn" aria-label="Go back">‹ back</button>
-      <span class="now-playing-label">now playing</span>
-      <button class="menu-btn" aria-label="Menu">⋯</button>
+      <button class="back-btn" id="backBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span>Back</span>
+      </button>
+      <span class="now-playing-tag">✦ Now Playing ✦</span>
+      <button class="heart-btn" id="heartBtn" aria-label="Like">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
     </nav>
 
-    <div class="album-wrapper">
-      <div class="cat-ears-player">
-        <div class="ear ear-left"></div>
-        <div class="ear ear-right"></div>
-      </div>
-      <div class="cover">
-        <img src="images/album.jpg" alt="Album cover">
-        <div class="cover-overlay">
-          <div class="spinning-paws">🐾</div>
+    <!-- Vinyl record art -->
+    <div class="vinyl-wrapper">
+      <div class="vinyl-glow"></div>
+      <div class="vinyl-ring-outer"></div>
+      <div class="vinyl-disc" id="vinylDisc">
+        <div class="vinyl-art">
+          <img src="images/album.jpg" alt="Album Art" id="albumImg">
+        </div>
+        <div class="vinyl-grooves"></div>
+        <div class="vinyl-center">
+          <div class="vinyl-hole"></div>
         </div>
       </div>
+      <div class="vinyl-needle" id="vinylNeedle"></div>
     </div>
 
-    <div class="song-meta">
-      <h2 class="song-title">Song Title</h2>
-      <p class="artist-name">Artist Name</p>
-    </div>
-
-    <audio class="js-music music" src="music/We_The_Kings_-_Sad_Song__Lyric_Video__ft._Elena_Coats.m4a"></audio>
-
-    <div class="progress-time">
-      <div class="timer">0:00</div>
-      <div class="progress-bar">
-        <div class="progress">
-          <div class="progress-thumb"></div>
-        </div>
+    <div class="song-info">
+      <h2 class="song-title" id="songTitle">Song Title</h2>
+      <p class="artist-name" id="artistName">Artist Name</p>
+      <div class="song-tags">
+        <span class="tag">🐱 Relaxing</span>
+        <span class="tag">✨ Chill</span>
       </div>
-      <div class="duration">0:00</div>
     </div>
 
-    <div class="controls">
-      <button class="js-prev ctrl-btn" aria-label="Previous">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-      </button>
-      <button class="js-pause-play pause-play ctrl-btn ctrl-main" aria-label="Play/Pause">
-        <svg class="pause-btn" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        <svg class="play-btn" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <button class="js-next ctrl-btn" aria-label="Next">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.75 4.14L8 14V9.86zM16 6h2v12h-2z"/></svg>
-      </button>
+    <audio class="js-music" id="audioPlayer" src="music/We_The_Kings_-_Sad_Song__Lyric_Video__ft._Elena_Coats.m4a"></audio>
+
+    <!-- Progress -->
+    <div class="progress-section">
+      <div class="progress-time">
+        <span class="timer" id="timer">0:00</span>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill">
+            <div class="progress-dot"></div>
+          </div>
+        </div>
+        <span class="duration" id="duration">0:00</span>
+      </div>
     </div>
 
-    <div class="meow-bar">
-      <span>😺</span>
-      <span>purrr...</span>
-      <span>😸</span>
+    <!-- Controls -->
+    <div class="controls-wrapper">
+      <div class="controls">
+        <button class="ctrl-btn ctrl-shuffle" aria-label="Shuffle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+            <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+          </svg>
+        </button>
+        <button class="ctrl-btn ctrl-prev js-prev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
+          </svg>
+        </button>
+        <button class="ctrl-btn ctrl-play js-pause-play" aria-label="Play/Pause" id="playPauseBtn">
+          <svg class="pause-btn" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+          <svg class="play-btn" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+        <button class="ctrl-btn ctrl-next js-next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 18l8.5-6L6 6v12zm8-6v12h4V6h-4z"/>
+          </svg>
+        </button>
+        <button class="ctrl-btn ctrl-repeat" aria-label="Repeat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+            <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <!-- Volume -->
+    <div class="volume-section">
+      <svg class="vol-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+      </svg>
+      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+      <svg class="vol-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+    </div>
+
+    <div class="bottom-cats">
+      <span class="kitty-emoji">😸</span>
+      <span class="kitty-emoji" style="animation-delay:.3s">😺</span>
+      <span class="kitty-emoji" style="animation-delay:.6s">😻</span>
+    </div>
+
   </div>
 
   <script src="main.js"></script>
