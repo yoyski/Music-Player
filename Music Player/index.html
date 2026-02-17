@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="music-player-main">
+    <h1>MUSIC PLAYER</h1>
+    <ul class="music-list">
+      <li>
+        <span class="music-title">Can_You_Feel_The_Love_Tonight_-_Elton_john__Acoustic_Cover_by_Chase_Eagleson.mp3</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Coldplay_-_The_Scientist__Acoustic_Cover.mp3</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Fly_Me_To_The_Moon_-_Frank_Sinatra__Acoustic_Cover_by_Chase_Eagleson.mp3</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">We_The_Kings_-_Sad_Song__Lyric_Video__ft._Elena_Coats.m4a</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Chord_Overstreet_-_Hold_On__Lyrics.m4a</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Dirty_Heads_-_Vacation__Lyrics____I_m_on_vacation_every_single_day.m4a</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Elvis_Presley_-_Can_t_Help_Falling_In_Love___Music_Travel_Love__Cover.mp3</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">How_Deep_Is_Your_Love___Music_Travel_Love_ft._Anthony_Uy__Bee_Gees_Cover.mp3</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Nathan_Evans_-_Wellerman__Sea_Shanty.m4a</span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Until_I_Found_You_-Stephen_Sanchez_ft._Em_Beihold__Lyric.m4a
+        </span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+      <li>
+        <span class="music-title">Brad_Paisley_-_Whiskey_Lullaby__Lyrics__ft._Alison_Krauss.mp3
+        </span>
+        <button class="play-music"><img src="images/play.svg" /></button>
+      </li>
+    </ul>
+  </div>
+  <div class="music-play-page">
+    <nav>
+      <button class="back-btn">
+        < </button>
+          <img class="burger-menu" src="images/burger-menu.svg" alt="menu" />
+    </nav>
+    <div class="cover">
+      <img src="images/album.jpg" alt="Album cover">
+    </div>
+
+    <h2 class="song-title">Song Title</h2>
+    <p class="artist-name">Artist Name</p>
+    <audio class="js-music music" src="music/We_The_Kings_-_Sad_Song__Lyric_Video__ft._Elena_Coats.m4a"></audio>
+
+    <div class="progress-time">
+      <div class="timer">0:00</div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <div class="duration">0:00</div>
+    </div>
+
+    <div class="controls">
+      <button class="js-prev"><img src="images/previous.svg" alt="previous" /></button>
+      <button class="js-pause-play pause-play">
+        <img class="pause-btn" src="images/pause.svg" alt="play" />
+        <img class="play-btn" src="images/play.svg" alt="play" />
+      </button>
+      <button class="js-next"><img src="images/next.svg" alt="next" /></button>
+    </div>
+  </div>
+  <!--<div class="small-page">
+    <div class="cover">
+      <img src="images/album.jpg" alt="Album cover">
+    </div>
+    <div class="song-title-progress-bar">
+      <span class="song-title">S</span>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+    </div>
+    <img class="js-play play" src="images/play.svg" alt="play" />
+  </div>-->
+  <script src="main.js">
+  </script>
+</body>
+
+</html>
