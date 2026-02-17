@@ -13,94 +13,105 @@ const playMusicButton = document.querySelectorAll('.play-music')
 const musicTitle = document.querySelectorAll('.music-title')
 const musicPlayerPage = document.querySelector('.music-play-page')
 const mainPage = document.querySelector('.music-player-main')
+const albumCover = document.querySelector('.cover')
 
 backButton.addEventListener("click", goBack)
 
 let currentSongIndex = 0;
+let selectedSongTitle = '';
 
 playMusicButton.forEach((music, index) => {
   music.addEventListener("click", () => {
-    selectedSongTitle = musicTitle[index].textContent
-    
+    selectedSongTitle = musicTitle[index].textContent.trim()
     currentSongIndex = index;
-    
-    currentSongTitle.textContent = musicTitle[index].textContent;
-    musicPlayerPage.style.display = "block"
+    currentSongTitle.textContent = formatTitle(selectedSongTitle)
+    musicPlayerPage.style.display = "flex"
+    musicPlayerPage.classList.add('visible')
     startPlaying(selectedSongTitle)
   })
 })
 
-
-function goBack(){
+function goBack() {
   musicPlayerPage.style.display = "none"
-  mainPage.style.display = "block"
+  musicPlayerPage.classList.remove('visible')
+  mainPage.style.display = "flex"
+  musicPlayer.pause()
+  albumCover.classList.remove('playing')
+  pauseButton.style.display = "none"
+  playButton.style.display = "block"
 }
 
-
+function formatTitle(raw) {
+  // Strip file extension and replace underscores/hyphens
+  return raw
+    .replace(/\.(mp3|m4a|wav|ogg)$/i, '')
+    .replace(/_/g, ' ')
+    .trim()
+}
 
 function startPlaying(selectedSongTitle) {
   musicPlayer.src = `music/${selectedSongTitle}`
   musicPlayer.play()
-  
+  albumCover.classList.add('playing')
+  pauseButton.style.display = "block"
+  playButton.style.display = "none"
+
   musicPlayer.addEventListener('loadedmetadata', () => {
-    songDuration.textContent = `${ Math.floor(musicPlayer.duration / 60)}:${ Math.floor(musicPlayer.duration % 60)}`;
-  });
+    const mins = Math.floor(musicPlayer.duration / 60)
+    const secs = Math.floor(musicPlayer.duration % 60).toString().padStart(2, '0')
+    songDuration.textContent = `${mins}:${secs}`
+  }, { once: false })
 }
 
 musicPlayer.addEventListener('timeupdate', () => {
-  const currentTime = musicPlayer.currentTime;
+  const currentTime = musicPlayer.currentTime
+  const duration = musicPlayer.duration
+  if (!duration) return
 
-  const duration = musicPlayer.duration;
-  const progressPercentage = (currentTime / duration) * 100;
-  progress.style.width = progressPercentage + "%";
+  const progressPercentage = (currentTime / duration) * 100
+  progress.style.width = progressPercentage + "%"
 
-  let seconds = (Math.floor(currentTime) % 60).toString().padStart(2, "0")
-  let minutes = (Math.floor(currentTime / 60) % 60)
-  musicCurrentTime.innerHTML = `
-  ${minutes}:${seconds}
-  `
-});
+  const seconds = Math.floor(currentTime % 60).toString().padStart(2, "0")
+  const minutes = Math.floor(currentTime / 60)
+  musicCurrentTime.textContent = `${minutes}:${seconds}`
+})
+
+musicPlayer.addEventListener('ended', () => {
+  // Auto-advance to next track
+  currentSongIndex = (currentSongIndex + 1) % musicTitle.length
+  navigateSong(currentSongIndex)
+})
 
 pauseButton.addEventListener("click", () => {
   musicPlayer.pause()
   pauseButton.style.display = "none"
   playButton.style.display = "block"
-  
+  albumCover.classList.remove('playing')
 })
 
 playButton.addEventListener("click", () => {
   playSong()
 })
 
-function playSong(){
+function playSong() {
   musicPlayer.play()
   pauseButton.style.display = "block"
   playButton.style.display = "none"
+  albumCover.classList.add('playing')
 }
 
 nextButton.addEventListener("click", () => {
-  try{
-  playSong()
-  currentSongIndex += 1;
+  currentSongIndex = (currentSongIndex + 1) % musicTitle.length
   navigateSong(currentSongIndex)
-  } catch {
-    currentSongIndex = 0;
-    navigateSong(currentSongIndex)
-  }
 })
 
 previousButton.addEventListener("click", () => {
-  try{
-  playSong()
-  currentSongIndex -= 1;
+  currentSongIndex = (currentSongIndex - 1 + musicTitle.length) % musicTitle.length
   navigateSong(currentSongIndex)
-  } catch {
-    alert(" ok ")
-  }
 })
 
-function navigateSong(currentSongIndex){
-  selectedSongTitle = musicTitle[currentSongIndex].textContent
-  currentSongTitle.textContent = musicTitle[currentSongIndex].textContent;
+function navigateSong(index) {
+  selectedSongTitle = musicTitle[index].textContent.trim()
+  currentSongTitle.textContent = formatTitle(selectedSongTitle)
   startPlaying(selectedSongTitle)
 }
